@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+    <style>
+        a:link, a:visited{
+               color: #039;
+               display: inline-block;
+               text-decoration: none;
+               text-transform: uppercase;
+               letter-spacing: 1px;
+               margin: 10px 15px;
+               padding: 10px 15px;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: 'Montserrat', sans-serif;
+               transition: 0.4s ease-in-out;
+                }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+        <a href="/profile/{{current_user.id}}">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout" style="margin:0px 0px; padding:0px 0px; font-size: 11px;">Logout</a>
+    {% else %}
+        <p>
+            <a class="btn btn-primary " href="/register">Register</a>
+            <a class="btn btn-success" href="/login">Sign up</a>
+        </p>
+    {% endif %}
+    <a href="../" style="padding:10px 45%;">Main</a>
+    {% if current_user.id == from_id or current_user.id == to_id %}
+    <table>
+        <tr>
+            {% for message in messages %}
+            {% if message.from_id == current_user.id %}
+            <div>
+                {% for line in message.text[0:18:1] %}
+                    <p style="text-align: center;">{{line}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if message.from_id == to_id %}
+            <div>
+                {% for line in message.text[::18] %}
+                    <p style="text-align: left;">{{line}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </tr>
+
+    </table>
+  <form method="post">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <p>
+            {{ form.text.label }}<br>
+            {{ form.text(cols=50, rows=4) }}<br>
+            {% for error in form.text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+    <p>{{ form.submit(type="submit", class="btn btn-info") }}</p>
+    {{message}}
+  </form>
+    {% else %}
+    <h2>У вас не достаточно прав</h2>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job</title>
+    <style>
+        * {box-sizing: border-box}
+
+.container {
+  padding: 16px;
+}
+label, h1{
+  margin: 0px 0px 0px 35%;
+}
+
+a:link, a:visited{
+               color: #039;
+               display: inline-block;
+               text-decoration: none;
+               text-transform: uppercase;
+               letter-spacing: 1px;
+               margin: 10px 15px;
+               padding: 10px 15px;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: 'Montserrat', sans-serif;
+               transition: 0.4s ease-in-out;
+                }
+
+input[type=text], input[type=password], input[type=email], input[type=file], textarea, select {
+  margin: 0px 0px 0px 35%;
+  align: middle;
+  width: 30%;
+  padding: 15px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus, select:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type="submit"] {
+  margin: 0px 0px 0px 35%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+
+input[type="submit"] {
+  opacity:1;
+}
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+        <a href="/profile/{{current_user.id}}">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout" style="margin:0px 0px; padding:0px 0px; font-size: 11px;">Logout</a>
+    {% else %}
+        <p>
+            <a class="btn btn-primary " href="/register">Register</a>
+            <a class="btn btn-success" href="/login">Sign up</a>
+        </p>
+    {% endif %}
+    <a href="../" style="padding:10px 45%;">Main</a>
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+            {{ form.description.label }}<br>
+            {{ form.description(cols=50, rows=4) }}<br>
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+    <p>
+        {{ form.cost.label }}<br>
+        {{ form.cost(class="form-control") }}<br>
+        {% for error in form.cost.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.category.label }}<br>
+        {{ form.category(class="form-control") }}<br>
+        {% for error in form.category.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>
+    <p>
+        {{ form.category_2.label }}<br>
+        {{ form.category_2(class="form-control") }}<br>
+        {% for error in form.category_2.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>
+        <input type="file" name='images' accept="image/jpeg,image/png">
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-info") }}</p>
+    {{message}}
+</form>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job info</title>
+    <style>
+        a:link, a:visited{
+               color: #039;
+               display: inline-block;
+               text-decoration: none;
+               text-transform: uppercase;
+               letter-spacing: 1px;
+               margin: 10px 15px;
+               padding: 10px 15px;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: 'Montserrat', sans-serif;
+               transition: 0.4s ease-in-out;
+                }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+        <a href="/profile/{{current_user.id}}">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout" style="margin:0px 0px; padding:0px 0px; font-size: 11px;">Logout</a>
+    {% else %}
+        <p>
+            <a class="btn btn-primary " href="/register">Register</a>
+            <a class="btn btn-success" href="/login">Sign up</a>
+        </p>
+    {% endif %}
+
+    <a href="../" style="padding:10px 45%;">Main</a>
+<table>
+  <tr>
+      <div>
+        <h2>{{job.title}}</h2>
+        {% if job.img != None %}
+             <div>
+                <img src="{{job.img}}" alt="user" style="width:10%; heigth:10%;">
+             </div>
+         {% endif %}
+         <div>
+          <h3>{{job.description}}</h3>
+         </div>
+      <div>
+          <a href="../profile/{{user.id}}">{{user.surname}} {{user.name}}</a>
+      </div>
+      </div>
+  </tr>
+  </table>
+</body>
+</html>

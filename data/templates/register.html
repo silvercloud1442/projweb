@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {box-sizing: border-box}
+.container {
+  padding: 16px;
+}
+.custom-checkbox{
+    margin: 0px 0px 0px 35%
+}
+label, h1{
+  margin: 0px 0px 0px 35%;
+}
+body {
+background-color: #dcdcdc
+}
+a:link, a:visited{
+               color: #039;
+               display: inline-block;
+               text-decoration: none;
+               text-transform: uppercase;
+               letter-spacing: 1px;
+               margin: 10px 15px;
+               padding: 10px 15px;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: 'Montserrat', sans-serif;
+               transition: 0.4s ease-in-out;
+                }
+
+input[type=text], input[type=password], input[type=email], input[type=date], textarea{
+  margin: 0px 0px 0px 35%;
+  align: middle;
+  width: 30%;
+  padding: 15px;
+  display: inline-block;
+  border: none;
+}
+
+input[type="submit"] {
+  margin: 0px 0px 0px 35%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+
+input[type="submit"] {
+  opacity:1;
+}
+
+    </style>
+</head>
+<body>
+<a href="../" style="padding:10px 45%;">Main</a>
+<h1>Регистрация</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(class="form-control", type="email") }}<br>
+        {% for error in form.email.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password.label(type="text")}}<br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password_again.label }}<br>
+        {{ form.password_again(class="form-control", type="password") }}<br>
+        {% for error in form.password_again.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.surname.label }}<br>
+        {{ form.surname(class="form-control") }}<br>
+        {% for error in form.surname.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.age.label }}<br>
+        {{ form.age(class="form-control", type="date") }}<br>
+        {% for error in form.age.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p style="margin: 0px 0px 0px 35%;">
+        <input type="file" name='images' accept="image/jpeg,image/png">
+    </p>
+    <p>
+            {{ form.description.label }}<br>
+            {{ form.description(cols=50, rows=4) }}<br>
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+    <div class="checkbox">
+    <p>
+        {{ form.worker.label }}Я фрилансер<br>
+            {{ form.worker(class="custom-checkbox") }}<br>
+            {% for error in form.worker.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="checkbox">
+    <p style="margin: 0px 0px 0px 35%">Навыки:</p>
+    <p>
+        {{ form.category_prog.label }}Программирование<br>
+            {{ form.category_prog(class="custom-checkbox") }}<br>
+            {% for error in form.category_prog.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="checkbox">
+    <p>
+        {{ form.category_des.label  }}Дизайн<br>
+            {{ form.category_des(class="custom-checkbox") }}<br>
+            {% for error in form.category_des.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="checkbox">
+    <p>
+        {{ form.category_av.label }}Аудио/видео<br>
+            {{ form.category_av(class="custom-checkbox") }}<br>
+            {% for error in form.category_av.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="checkbox">
+    <p>
+        {{ form.category_mrk.label }}Маркетинг<br>
+            {{ form.category_mrk(class="custom-checkbox") }}<br>
+            {% for error in form.category_mrk.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="checkbox">
+    <p>
+        {{ form.category_tw.label }}Работа с текстом<br>
+            {{ form.category_tw(class="custom-checkbox") }}<br>
+            {% for error in form.category_tw.errors %}
+            <span>Indigo</span>
+            {% endfor %}
+        </p>
+    </div>
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+    <a href="/login">Уже есть аккаунт?</a>
+</form>
+</body>
+</html>
