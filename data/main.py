@@ -29,7 +29,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# run_with_ngrok(app)
+run_with_ngrok(app)
 
 global_init('db/dbase.sqlite')
 
